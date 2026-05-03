@@ -1,0 +1,239 @@
+/* 
+   DASHBOARD & MAIN APP STYLES
+ */
+body.app-layout {
+    display: block; 
+    padding-top: 20px;
+    min-height: 100vh;
+    height: auto;
+    background-color: rgb(197, 215, 227);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Shared Inputs and Buttons for App */
+input, select, textarea {
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    background-color: #ffffff;
+    padding: 50px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e9ecef;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 28px;
+    font-family: Georgia, serif;
+    color: #2c3e50;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #eeeeeff8;
+    padding: 5px 20px;
+    border-radius: 40px;
+    width: 40%;
+    border: 1px solid #ced4da;
+    margin-left: -10px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    height: 30px;
+    margin-left: 10px;
+}
+
+/* Filter Menu */
+.filter-menu {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.filter-menu a {
+    text-decoration: none;
+    color: #47494a;
+    font-weight: 600;
+    font-size: 15px;
+    padding-bottom: 15px;
+    transition: color 0.2s;
+}
+
+.filter-menu a:hover {
+    color: #575b5f;
+}
+
+.filter-menu a.active {
+    color: #0d6efd;
+    border-bottom: 2px solid #0d6efd;
+}
+
+/*  Listings Grid  */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+ /* Card Styles */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e9ecef;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Card Image Placeholder */
+.card-img {
+    background-color: #e9ecef;
+    height: 250px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #adb5bd;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+/* Ensure images fit nicely within the card */
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card p {
+    margin: 0;
+    color: #495057;
+    line-height: 1.5;
+}
+
+.card strong {
+    font-size: 18px;
+    color: #212529;
+    display: block;
+    margin-bottom: -10px;
+}
+
+/* Form Layouts for Create Listing */
+.form-container {
+    background: white;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 30px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover; 
+  margin-right: -15px;
+  border: 2px solid #ccc; 
+  margin-left: 50px;
+}
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 180px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    padding: 10px;
+    z-index: 999;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+}
+
+.user-dropdown a:hover {
+    background: #f1f1f1;
+}
+
+.user-dropdown .email {
+    font-size: 13px;
+    color: gray;
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.tooltip {
+    position: absolute;
+    background: #2c3e50;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    max-width: 220px;
+    z-index: 9999;
+
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+}
+
+.tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}

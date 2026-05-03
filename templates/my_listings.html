@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Listings</title>
+    <link rel="stylesheet" href="static/app.css">
+    <link rel="stylesheet" href="static/my_listings.css">
+</head>
+<body class="app-layout">
+
+    <header class="page-header">
+        <a href="/dashboard" class="back-link">&larr; Back</a>
+        <h1>My Listings</h1>
+    </header>
+
+    <!-- Dynamic count -->
+    <div id="listing-count">
+        Total Listings: {{ listings|length }}
+    </div>
+
+    <!-- Split view -->
+    <main class="listings-split-view">
+
+        <!-- ACTIVE LISTINGS -->
+        <section class="listing-column">
+            <h2>Active Listings</h2>
+
+            <div class="column-grid">
+
+                {% if listings %}
+                    {% for listing in listings %}
+                        <div class="listing-card">
+
+                            <div>
+                                <strong>{{ listing.title }}</strong>
+                                <p>{{ listing.location }}</p>
+                            </div>
+
+                            <div>
+                                <button onclick="editListing({{ listing.id }})">✏️</button>
+                                <button onclick="deleteListing({{ listing.id }})">🗑️</button>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color:#888; text-align:center;">
+                        No active listings yet
+                    </p>
+                {% endif %}
+
+            </div>
+        </section>
+
+        <!-- RESOLVED LISTINGS -->
+        <section class="listing-column resolved-zone">
+            <h2>Resolved</h2>
+
+            <div class="column-grid">
+                <p style="color:#888; text-align:center; width:100%;">
+                    No resolved listings yet
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="static/my_listings.js"></script>
+</body>
+</html>

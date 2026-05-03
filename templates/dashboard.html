@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Lost & Found</title>
+    <link rel="stylesheet" href="static/app.css">
+</head>
+<body class="app-layout">
+
+    <div class="navbar">
+
+    <!-- LEFT: User -->
+    <div style="display: flex; align-items: center; gap: 10px; position: relative;">
+        <div class="avatar" id="user-menu-btn" onclick="toggleUserMenu()">
+            AM
+        </div>
+
+        <!-- dropdown -->
+        <div id="user-dropdown" class="user-dropdown hidden">
+            <p class="email">studentemail@southernct.edu</p>
+            <hr>
+            <a href="/">Logout</a>
+        </div>
+    </div>
+
+    <!-- CENTER: Title -->
+    <h2>Dashboard</h2>
+
+    <!-- RIGHT: Search -->
+    <div class="search-bar">
+        <span style="font-size: 20px; margin-right: -8px;">&#128269;</span>
+        <input type="text" id="search-input" placeholder="Find your item...">
+    </div>
+
+    <!-- SETTINGS -->
+    <div>
+        <select onchange="location = this.value;" style="padding: 5px; font-size: 16px; margin-right: 50px;">
+            <option value="#">Settings</option>
+            <option value="/create-listing">Create Listing</option>
+            <option value="/my_listings">My Listings</option>
+            <option value="/messages">Messages</option>
+        </select>
+    </div>
+
+</div>
+
+    <div class="filter-menu" id="filter-menu">
+        <a href="#" class="active" >Apply All</a>
+        <a href="#">Accessories</a>
+        <a href="#">Apparel</a>
+        <a href="#">Books</a>
+        <a href="#">Electronics</a>
+        <a href="#">Other</a>
+        <a href="#">Claimed Listings</a>
+    </div>
+
+    <div class="grid-container" id="listings-grid">
+        <!-- Card 1: Accessories -->
+        <div class="card" data-category="accessories" onclick="location.href='/listing-info/1'" style="cursor: pointer;">
+            <div class="card-img">
+                <img src="static/Sunglasses.jpg" alt="Item 1">
+            </div>
+            <p><strong>Sunglasses</strong><br>Found in Buley Library.</p>
+        </div>
+        
+        <!-- Card 2: Books -->
+        <div class="card" data-category="books" onclick="location.href='/listing-info/2'" style="cursor: pointer;">
+            <div class="card-img">
+                <img src="static/Phone.jpg" alt="Item 2">
+            </div>
+            <p><strong>Phone</strong><br>Found in Engleman Hall.</p>
+        </div>
+
+        <!-- Card 2: Books -->
+        <div class="card" data-category="books" onclick="location.href='/listing-info/3'" style="cursor: pointer;">
+            <div class="card-img">
+                <img src="static/Water Bottle.jpg" alt="Item 2">
+            </div>
+            <p><strong>Water Bottle</strong><br>Found in Engleman Hall.</p>
+        </div>
+        
+    </div> <!-- end grid-container -->
+    <div id="tooltip" class="tooltip hidden"></div>
+    <script src="static/dashboard.js"></script>
+
+    
+</body>
+</html>
