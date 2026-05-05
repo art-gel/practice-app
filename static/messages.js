@@ -21,10 +21,10 @@ function handleSend(event) {
 function loadChat(user) {
     const chatBox = document.getElementById('chat-box');
 
-    // clear chat
+    /* clear chat */
     chatBox.innerHTML = "";
 
-    // set demo messages based on user
+    /* Temporary demo messages based on user */
     if (user === 'alex') {
         chatBox.innerHTML = `
             <div class="bubble received"><p>Hi! I found your water bottle.</p></div>

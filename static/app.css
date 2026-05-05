@@ -3,17 +3,16 @@
  */
 body.app-layout {
     display: block; 
-    padding-top: 20px;
     min-height: 100vh;
     height: auto;
-    background-color: rgb(197, 215, 227);
+    background-color: rgb(201, 219, 231);
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Shared Inputs and Buttons for App */
 input, select, textarea {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
     font-family: inherit;
@@ -33,7 +32,7 @@ input, select, textarea {
 
 .navbar h2 {
     margin: 0;
-    font-size: 28px;
+    font-size: 35px;
     font-family: Georgia, serif;
     color: #2c3e50;
 }
@@ -42,7 +41,7 @@ input, select, textarea {
 .search-bar {
     display: flex;
     align-items: center;
-    background: #eeeeeff8;
+    background: #ebebebf8;
     padding: 5px 20px;
     border-radius: 40px;
     width: 40%;
@@ -90,12 +89,13 @@ input, select, textarea {
 /*  Listings Grid  */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 25px;
-    padding: 0 40px;
+    padding: 0 60px;
     margin-bottom: 50px;
 }
- /* Card Styles */
+
+/* Card Styles */
 .card {
     background: white;
     border-radius: 12px;
@@ -113,7 +113,7 @@ input, select, textarea {
 /* Card Image Placeholder */
 .card-img {
     background-color: #e9ecef;
-    height: 250px;
+    height: 320px;
     width: 100%;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -158,28 +158,21 @@ input, select, textarea {
     gap: 30px;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover; 
-  margin-right: -15px;
-  border: 2px solid #ccc; 
-  margin-left: 50px;
-}
+/* User Profle Dropdown */
 .avatar {
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    margin-left: 50px;
     background-color: #4a90e2;
     color: white;
     font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
     cursor: pointer;
     user-select: none;
+    overflow: hidden;
 }
 
 .user-dropdown {
@@ -215,25 +208,4 @@ input, select, textarea {
 
 .hidden {
     display: none;
-}
-
-
-.tooltip {
-    position: absolute;
-    background: #2c3e50;
-    color: white;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 14px;
-    max-width: 220px;
-    z-index: 9999;
-
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: all 0.25s ease;
-}
-
-.tooltip.show {
-    opacity: 1;
-    transform: translateY(0);
 }

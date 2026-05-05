@@ -5,65 +5,96 @@
     <link rel="stylesheet" href="static/app.css">
     <link rel="stylesheet" href="static/my_listings.css">
 </head>
+
 <body class="app-layout">
+    <div style="text-align: center; margin: 20px 0; position: relative;">
+        <a href="/dashboard"
+           style="position: absolute; left: 70px; top: 10px; text-decoration: none; font-size: 20px;">
+            &larr; Back
+        </a>
 
-    <header class="page-header">
-        <a href="/dashboard" class="back-link">&larr; Back</a>
-        <h1>My Listings</h1>
-    </header>
+        <h1 style="font-size: 40px; font-family: serif; margin: 0;">
+            My Listings
+        </h1>
+    </div>
 
-    <!-- Dynamic count -->
-    <div id="listing-count">
+    <!-- TOTAL COUNT -->
+    <div id="listing-count" style="padding: 0 60px;">
         Total Listings: {{ listings|length }}
     </div>
 
-    <!-- Split view -->
     <main class="listings-split-view">
-
-        <!-- ACTIVE LISTINGS -->
         <section class="listing-column">
-            <h2>Active Listings</h2>
-
+            <h2>Active</h2>
             <div class="column-grid">
+                {% for listing in listings %}
+                    {% if not listing.is_claimed %}
 
-                {% if listings %}
-                    {% for listing in listings %}
-                        <div class="listing-card">
+                    <div class="listing-card">
 
-                            <div>
-                                <strong>{{ listing.title }}</strong>
-                                <p>{{ listing.location }}</p>
-                            </div>
+                        <div class="listing-info">
+                        <strong>{{ listing.item_name }}</strong>
+                        <p>| {{ listing.location }}</p>
+                    </div>
 
-                            <div>
-                                <button onclick="editListing({{ listing.id }})">✏️</button>
-                                <button onclick="deleteListing({{ listing.id }})">🗑️</button>
-                            </div>
+                        <div class="listing-actions">
+                            <!-- EDIT BUTTON -->
+                            <button class="icon-btn"
+                                    onclick="editListing({{ listing.id }})">
+                                ✏️
+                            </button>
+                            <!-- CLAIM BUTTON -->
+                            <button class="icon-btn claim-btn"
+                                    onclick="claimListing({{ listing.id }})">
+                                🏷️ Claim
+                            </button>
+
+                            <button class="icon-btn delete-btn"
+                                    onclick="deleteListing({{ listing.id }})">
+                                🗑️
+                            </button>
 
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <p style="color:#888; text-align:center;">
-                        No active listings yet
-                    </p>
-                {% endif %}
+
+                    </div>
+
+                    {% endif %}
+                {% endfor %}
 
             </div>
         </section>
 
-        <!-- RESOLVED LISTINGS -->
-        <section class="listing-column resolved-zone">
-            <h2>Resolved</h2>
+        
+        <section class="listing-column claimed-zone">
+            <h2>Claimed</h2>
 
             <div class="column-grid">
-                <p style="color:#888; text-align:center; width:100%;">
-                    No resolved listings yet
-                </p>
+
+                {% for listing in listings %}
+                    {% if listing.is_claimed %}
+
+                    <div class="listing-card claimed">
+
+                        <div class="listing-info">
+                            <strong>{{ listing.item_name }}</strong>
+                            <p>{{ listing.location }}</p>
+                        </div>
+
+                        <div class="listing-actions">
+                            <!-- UNCLAIM BUTTON -->
+                            <button class="icon-btn"
+                                    onclick="unclaimListing({{ listing.id }})">
+                                ↩️ Unclaim
+                            </button>
+                        </div>
+
+                    </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </section>
-
     </main>
-
     <script src="static/my_listings.js"></script>
+
 </body>
 </html>

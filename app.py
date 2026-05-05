@@ -1,12 +1,15 @@
 from flask import Flask, render_template, request, jsonify
-from models import db, Account  # Make sure to import db and your Account model!
+import os
+from werkzeug.utils import secure_filename
+from models import db, Account, Post, Message  
 
-listings = []
 app = Flask(__name__)
 
+# Configuration for image uploads
+app.config['UPLOAD_FOLDER'] = 'static/images'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # DATABASE CONFIGURATION
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///lostandfound.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -30,35 +33,40 @@ def forgot_password():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html", posts=listings)
+    # Fetch all listings from the database, newest first
+    posts = Post.query.order_by(Post.post_date.desc()).all()
+    return render_template("dashboard.html", posts=posts)
 
-@app.route("/create-listing", methods=["POST"])
+@app.route("/listing-info")
+def listing_info():
+    post_id = request.args.get("id")
+
+    post = Post.query.get(post_id)
+
+    return render_template("listing_info.html", post=post)
+
+@app.route("/createlisting")
 def create_listing():
-    item = {
-        "id": len(listings) + 1,
-        "title": request.form["title"],
-        "location": request.form["location"]
-    }
-
-    listings.append(item)
-
-    return redirect("/dashboard")
+    return render_template("createlisting.html")
 
 @app.route("/my_listings")
 def my_listings():
+    # 1. Fetch all listings from the database
+    # (In a real app, you'd do: Post.query.filter_by(user_id=1).all())
+    listings = Post.query.order_by(Post.post_date.desc()).all()
+    
+    # 2. Pass the 'listings' data to your HTML template
     return render_template("my_listings.html", listings=listings)
+
+@app.route("/edit_listing")
+def edit_listing():
+    return render_template("edit_listing.html")
 
 @app.route("/messages")
 def messages():
     return render_template("messages.html")
 
-@app.route("/edit_listing")
-def edit_listing():
-    return render_template("edit_listing.html")
-    
-@app.route("/listing-info")
-def listing_info():
-    return render_template("listing_info.html")
+
 
 
 
@@ -89,6 +97,107 @@ def api_register():
     except Exception as e:
         db.session.rollback() # Undo if something goes wrong
         return jsonify({"success": False, "message": f"Server Error: {str(e)}"})
+
+# New API Route for Creating Listings with Images
+@app.route("/api/listings", methods=["POST"])
+def api_create_listing():
+    # Note: In a real app, grab user_id from the logged-in session. 
+    # Hardcoding to 1 for this demonstration.
+    user_id = 1 
+    
+    image_url = None
+    if 'image' in request.files:
+        file = request.files['image']
+        if file.filename != '':
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            image_url = f"images/{filename}"
+
+    new_post = Post(
+        user_id=user_id,
+        item_name=request.form.get('title'),
+        description=request.form.get('description'),
+        category=request.form.get('category'),
+        location=request.form.get('location'),
+        image_url=image_url
+    )
+    
+    try:
+        db.session.add(new_post)
+        db.session.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"success": False, "message": str(e)})
+
+@app.route("/api/listings/claim/<int:post_id>", methods=["POST"])
+def api_claim_listing(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.is_claimed = True
+    
+    try:
+        db.session.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"success": False, "message": str(e)})
+
+@app.route("/api/listings/unclaim/<int:post_id>", methods=["POST"])
+def api_unclaim_listing(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.is_claimed = False
+    try:
+        db.session.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"success": False, "message": str(e)})
+
+
+@app.route("/api/listings/update/<int:post_id>", methods=["POST"])
+def api_update_listing(post_id):
+    post = Post.query.get_or_404(post_id)
+    
+    # Update the fields with the new data from the form
+    post.item_name = request.form.get("item_name")
+    post.location = request.form.get("location")
+    post.category = request.form.get("category")
+    # Add any other fields you want to edit here
+    
+    db.session.commit()
+    return redirect("/my-listings") # Go back to the management page
+
+@app.route("/api/listings/delete/<int:post_id>", methods=["DELETE"])
+def api_delete_listing(post_id):
+    post = Post.query.get_or_404(post_id)
+    
+    try:
+        db.session.delete(post)
+        db.session.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"success": False, "message": str(e)})
+
+# Real-time Messaging API scaffolding
+@app.route("/api/messages/<int:post_id>", methods=["GET", "POST"])
+def api_messages(post_id):
+    if request.method == "POST":
+        data = request.get_json()
+        new_msg = Message(
+            message_text=data['text'],
+            sender_id=1,   # Mock sender ID
+            receiver_id=2  # Mock receiver ID
+        )
+        db.session.add(new_msg)
+        db.session.commit()
+        return jsonify({"success": True})
+    
+    # GET method
+    messages = Message.query.all() # In production, filter by sender_id/receiver_id
+    return jsonify([{"text": m.message_text, "sender_id": m.sender_id} for m in messages])
+
 
 if __name__ == "__main__":
     app.run(debug=True)

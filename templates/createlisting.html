@@ -6,12 +6,15 @@
 </head>
 <body class="app-layout">
 
-    <div style="text-align: center; margin: 20px 0; position: relative;">
-        <h1 style="font-size: 40px; font-family: serif; margin: 0;">Create a Listing!</h1>
+    <div style="text-align: center; margin: 20px 0;">
+        <h1 style="font-size: 40px; font-family: serif;">Create a Listing!</h1>
     </div>
 
     <form class="form-container" id="create-listing-form">
+
+        <!-- LEFT SIDE -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+
             <div>
                 <label>Date:</label><br>
                 <input type="date" id="listing-date" required style="width: 100%;">
@@ -19,50 +22,110 @@
 
             <div>
                 <label>Category:</label><br>
-                <select id="listing-category" required style="width: 100%; height: 40px; font-size: 16px;">
+                <select id="listing-category" required style="width: 100%; height: 40px;">
                     <option value="">-Select-</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Apparel">Apparel</option>
-                    <option value="Books">Books</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Other">Other</option>
+                    <option>Accessories</option>
+                    <option>Apparel</option>
+                    <option>Books</option>
+                    <option>Electronics</option>
+                    <option>Other</option>
                 </select>
             </div>
 
             <div>
-                <label>Found at / Lost at:</label><br>
-                <select id="listing-location" required style="width: 100%; height: 40px; font-size: 16px;">
+                <label>Location:</label><br>
+                <select id="listing-location" required style="width: 100%; height: 40px;">
                     <option value="">-Select-</option>
-                    <option value="Buley Library">Buley Library</option>
-                    <option value="Engleman Hall">Engleman Hall</option>
-                    <option value="Jennings Hall">Jennings Hall</option>
-                    <option value="Morrill Hall">Morrill Hall</option>
-                    <option value="Student Center">Student Center</option>
+                    <option>Buley Library</option>
+                    <option>Engleman Hall</option>
+                    <option>Jennings Hall</option>
+                    <option>Morrill Hall</option>
+                    <option>Student Center</option>
                 </select>
             </div>
 
             <div>
                 <label>Description:</label><br>
-                <textarea id="listing-description" required rows="4" style="width: 100%; font-size: 16px; padding: 5px;" placeholder="Item description: Color, brand, any features!"></textarea>
+                <textarea id="listing-description" required rows="4"
+                    style="width: 100%; padding: 5px;"
+                    placeholder="Color, brand, features..."></textarea>
             </div>
 
             <div style="display: flex; gap: 10px;">
-                <button type="button" onclick="location.href='/dashboard'" style="background: #ccc; border: none; width: 100px;">Cancel</button>
-                <button type="submit" style="background: #4CAF50; color: white; border: none; height: 40px; width: 100px;">Submit</button>
+                <button type="button"
+                        onclick="location.href='/dashboard'"
+                        style="background:#ccc; border:none; height:40px; width:100px;">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        style="background:#4CAF50; color:white; border:none; width:100px;">
+                    Submit
+                </button>
             </div>
+
         </div>
 
+        <!-- RIGHT SIDE -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+
             <div>
                 <label>Title:</label><br>
-                <input type="text" id="listing-title" required placeholder="e.g. Water Bottle" style="width: 100%; height: 30px; font-size: 16px;">
+                <input type="text" id="listing-title" required
+                       placeholder="e.g. Water Bottle"
+                       style="width: 100%; height: 30px;">
             </div>
 
-            <div style="border: 2px dashed #aaa; flex: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-direction: column; background: #fafafa; cursor: pointer; position: relative;">
-                <span style="font-size: 20px; color: #888;">Click to Upload</span>
-                <input type="file" id="listing-image" accept="image/*" style="opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer;">
+            <!-- IMAGE UPLOAD BOX (UPDATED) -->
+            <div style="
+                border: 2px dashed #aaa;
+                flex: 1;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #fafafa;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            ">
+
+                <!-- TEXT -->
+                <span id="upload-text"
+                      style="font-size: 20px; color: #888;">
+                    Click to Upload
+                </span>
+
+                <!-- IMAGE PREVIEW -->
+                <img id="image-preview"
+                     style="
+                        display: none;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        border-radius: 10px;
+                     " />
+
+                <!-- FILE INPUT -->
+                <input type="file"
+                       id="listing-image"
+                       name="image"
+                       accept="image/*"
+                       style="
+                            opacity: 0;
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            cursor: pointer;
+                       ">
+
             </div>
+
         </div>
+
     </form>
 
     <script src="static/createlisting.js"></script>

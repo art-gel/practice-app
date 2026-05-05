@@ -1,0 +1,198 @@
+/* =========================
+   LISTING INFO PAGE STYLES
+   ========================= */
+
+body.app-layout {
+    background-color: rgb(201, 219, 231);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 30px;
+}
+
+/* Back link */
+.back-link {
+    text-decoration: none;
+    font-size: 20px;
+    color: #333;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Main container */
+.listing-container {
+    max-width: 700px;
+    max-height: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.listing-title {
+    text-align: center;
+    font-family: serif;
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Image box */
+.listing-image {
+    width: 115%;
+    height: 480px;
+    margin-left: 90px;
+    margin-right: 70px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+  
+    margin-bottom: 20px;
+}
+
+.listing-image img {
+    width: 65%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Bottom section layout */
+.listing-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 30px;
+}
+
+/* Left side (user + description) */
+.user-section {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+}
+
+/* Avatar */
+.avatar-small {
+    background: #e0ecf8;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Description text */
+.description h3 {
+    margin: 0;
+}
+
+.description p {
+    color: #666666e9;
+    margin: 5px 0 0;
+}
+
+/* Right buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Connect button */
+.connect-btn {
+    background: #3c96df;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Report button */
+.report-btn {
+    background: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chat box */
+.chat-thread {
+    display: none;
+    margin-top: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.chat-thread h4 {
+    margin-top: 0;
+}
+
+.chat-bubble {
+    background: #f1f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: fit-content;
+    max-width: 80%;
+}
+
+.chat-bubble.user {
+    margin-left: auto;
+    background: #2196F3;
+    color: white;
+}
+
+/* Chat input */
+.chat-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.chat-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chat-form button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+/* Report modal */
+.report-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.report-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+}
+
+.report-box h3 {
+    margin-top: 0;
+}

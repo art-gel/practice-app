@@ -7,51 +7,82 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 //  Create Listing Logic 
 document.addEventListener('DOMContentLoaded', () => {
+
     const createForm = document.getElementById('create-listing-form');
+
     if (createForm) {
         createForm.addEventListener('submit', (event) => __awaiter(this, void 0, void 0, function* () {
-            event.preventDefault(); // Prevent standard page reload
-            // Safely grab all input elements with their proper types
+
+            event.preventDefault();
+
             const titleInput = document.getElementById('listing-title');
             const categoryInput = document.getElementById('listing-category');
             const locationInput = document.getElementById('listing-location');
             const descInput = document.getElementById('listing-description');
             const imageInput = document.getElementById('listing-image');
+
             if (!titleInput || !categoryInput || !locationInput || !descInput) {
                 console.error("Missing form fields");
                 return;
             }
-            // Use FormData to handle both text inputs and the image file
+
             const formData = new FormData();
             formData.append('title', titleInput.value);
             formData.append('category', categoryInput.value);
             formData.append('location', locationInput.value);
             formData.append('description', descInput.value);
-            // Append the file if one was selected
+
             if (imageInput && imageInput.files && imageInput.files.length > 0) {
                 formData.append('image', imageInput.files[0]);
             }
+
             try {
-                // Send to our new Flask route
                 const response = yield fetch('/api/listings', {
                     method: 'POST',
-                    body: formData // The browser automatically sets Content-Type to multipart/form-data
+                    body: formData
                 });
+
                 const data = yield response.json();
+
                 if (data.success) {
                     alert('Listing successfully created!');
                     window.location.href = '/dashboard';
-                }
-                else {
+                } else {
                     alert('Error creating listing: ' + data.message);
                 }
-            }
-            catch (error) {
+
+            } catch (error) {
                 console.error('Error:', error);
                 alert('Server error occurred.');
             }
+
         }));
     }
+
+    // ✅ IMAGE PREVIEW (NEW PART)
+    const imageInput = document.getElementById('listing-image');
+    const preview = document.getElementById('image-preview');
+    const text = document.getElementById('upload-text');
+
+    if (imageInput && preview && text) {
+        imageInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                    text.style.display = "none";
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
 });
